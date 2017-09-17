@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="AmazonVideoLauncher.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AmazonVideoLauncher"
+    xmlns:vm="using:AmazonVideoLauncher.ViewModels"
+    xmlns:model="using:AmazonVideoLauncher.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignData Source=/data/sample.json, Type=vm:MainViewModel}"
+    RequestedTheme="Dark"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Compact">
+            <AppBarButton Icon="ClearSelection" Label="クリア" Click="AppBarClear_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock 
+            FontFamily="Impact" FontSize="100"
+            HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Amazon Video Launcher" VerticalAlignment="Top"/>
+        <GridView 
+            ItemsSource="{Binding Path=Items}"
+            Margin="10,10,10,10" Grid.Row="1" 
+            ItemClick="GridView_ItemClick" IsItemClickEnabled="True"
+            >
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="180" Height="135">
+                        <Border Background="Green">
+                            <Image Source="{Binding Path=Thum}">
+                                <Image.Clip>
+                                    <RectangleGeometry Rect="0,17,180,101" />
+                                </Image.Clip>
+                            </Image>
+                        </Border>
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <CheckBox Content="" Margin="3"
+                                      BorderBrush="White"
+                                      Style="{StaticResource CheckBoxStyle1}"
+                                      IsChecked="{Binding IsCheck, Mode=TwoWay}"
+                                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                      Grid.Row="0"
+                                      />
+                            <Rectangle Grid.Row="2" Grid.RowSpan="2" Fill="Black" Opacity="0.3">
+                            </Rectangle>
+                            <TextBlock Text="{Binding Path=Title}" FontSize="18" Foreground="White" Grid.Row="2" Margin="3,0,3,0" />
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+    </Grid>
+</Page>
