@@ -11,6 +11,11 @@ Amazon Prime Video のリストを UWP アプリに取り込んで、ヘビー�
 
 ドロップしたソースコードはアプリ内で保持しているので、消してしまってok.
 
+AmazonVideoHtmlGet ツールを使うと、プライムビデオを検索して HTML ファイルに落とすことができます。
+
+<image src="images/003.jpg">
+
+
 ## トップページ
 <image src="images/001.jpg">
 
