@@ -73,55 +73,35 @@ namespace AmazonVideoLauncher
                 {
                     using (var sr = new System.IO.StreamReader(st))
                     {
-
+                        var doc = new HtmlAgilityPack.HtmlDocument();
+                        doc.Load(sr);
                         // タイトルを取得
                         VideoTitle vtitle = new VideoTitle();
                         vtitle.Videos = new List<Video>();
-                        while (!sr.EndOfStream)
-                        {
-                            var line = sr.ReadLine();
-                            if ( line.IndexOf("aiv-content-title") > 0 )
-                            {
-                                line = sr.ReadLine();
-                                var t = line.Trim();
-                                vtitle.Title = System.Net.WebUtility.HtmlDecode(t);
-                            }
-                            if (line.IndexOf("https://images-na.ssl-images-amazon.com/images/I") > 0)
-                            {
-                                var r = new Regex(@"src=""([^""]*)""");
-                                var m = r.Match(line);
-                                vtitle.Thum = m.Groups[1].Value;
-                                break;
-                            }
-                        }
+                        var el = doc.DocumentNode.SelectSingleNode(@"//h1[@id=""aiv-content-title""]");
+                        vtitle.Title = el.InnerText.Trim();
+                        var div = doc.DocumentNode.SelectSingleNode(@"//div[@class=""dp-meta-icon-container""]");
+                        vtitle.Thum = div.SelectSingleNode("img").Attributes["src"].Value;
                         vm.Items.Add(vtitle);
 
                         // 各話を取得
-                        Video video = new Video();
                         var lst = vtitle.Videos;
-                        while (!sr.EndOfStream)
+                        var packs = doc.DocumentNode.SelectNodes(@"//div[contains(@class,'dv-episode-container')]");
+                        foreach ( var it in packs.ToList() )
                         {
-                            var line = sr.ReadLine();
-                            if (line.IndexOf("dv-playback-container") > 0)
-                            {
-                                video = new Video();
-                                var r = new Regex(@"href=""([^""]*)""");
-                                var m = r.Match(line);
-                                video.Url = "http://amazon.co.jp" + m.Groups[1].Value.Replace("&amp;", "&");
-                                lst.Add(video);
-                                //video = null;
-                            }
-                            if (line.IndexOf("dv-el-packshot-image") > 0)
-                            {
-                                var r = new Regex("url\\((.*)\\);");
-                                var m = r.Match(line);
-                                video.Thum = m.Groups[1].Value;
-                            }
-                            if (line.IndexOf(@"class=""dv-el-title""") > 0)
-                            {
-                                line = sr.ReadLine();
-                                video.Title = line.Trim();
-                            }
+                            var video = new Video();
+                            video.Url =  it.SelectSingleNode(@".//a[contains(@class,""dv-playback-container"")]").Attributes["href"].Value;
+                            video.Url = "http://amazon.co.jp" + video.Url.Replace("&amp;", "&"); 
+                            video.Thum = it.SelectSingleNode(@".//div[@class=""dv-el-packshot-image""]").Attributes["style"].Value;
+                            video.Thum = video.Thum
+                                .Replace("background-image: url(\"","")
+                                .Replace("background-image: url(","")
+                                .Replace("\");","")
+                                .Replace(");","") ;
+                            video.Title = it.SelectSingleNode(@".//div[@class=""dv-el-title""]").InnerText
+                                .Replace("<!-- Title -->", "")
+                                .Trim();
+                            lst.Add(video);
                         }
                         // ファイルに保存する
                         datasave();
