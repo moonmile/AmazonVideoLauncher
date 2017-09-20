@@ -89,19 +89,23 @@ namespace AmazonVideoLauncher
                         var packs = doc.DocumentNode.SelectNodes(@"//div[contains(@class,'dv-episode-container')]");
                         foreach ( var it in packs.ToList() )
                         {
-                            var video = new Video();
-                            video.Url =  it.SelectSingleNode(@".//a[contains(@class,""dv-playback-container"")]").Attributes["href"].Value;
-                            video.Url = "http://amazon.co.jp" + video.Url.Replace("&amp;", "&"); 
-                            video.Thum = it.SelectSingleNode(@".//div[@class=""dv-el-packshot-image""]").Attributes["style"].Value;
-                            video.Thum = video.Thum
-                                .Replace("background-image: url(\"","")
-                                .Replace("background-image: url(","")
-                                .Replace("\");","")
-                                .Replace(");","") ;
-                            video.Title = it.SelectSingleNode(@".//div[@class=""dv-el-title""]").InnerText
-                                .Replace("<!-- Title -->", "")
-                                .Trim();
-                            lst.Add(video);
+                            try
+                            {
+                                var video = new Video();
+                                video.Url = it.SelectSingleNode(@".//a[contains(@class,'dv-playback-container')]").Attributes["href"].Value;
+                                video.Url = "http://amazon.co.jp" + video.Url.Replace("&amp;", "&");
+                                video.Thum = it.SelectSingleNode(@".//div[@class=""dv-el-packshot-image""]").Attributes["style"].Value;
+                                video.Thum = video.Thum
+                                    .Replace("background-image: url(\"", "")
+                                    .Replace("background-image: url(", "")
+                                    .Replace("\");", "")
+                                    .Replace(");", "");
+                                video.Title = it.SelectSingleNode(@".//div[@class=""dv-el-title""]").InnerText
+                                    .Replace("<!-- Title -->", "")
+                                    .Trim();
+                                lst.Add(video);
+                            }
+                            catch { }
                         }
                         // ファイルに保存する
                         datasave();
