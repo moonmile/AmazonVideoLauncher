@@ -358,11 +358,13 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>moonmile.AmazonVideoLauncher</MainPackageIdentityName>
+    <MainPackageIdentityName>38645moonmile.6131471BE7912</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>Amazon Video Launcher</ReservedName>
+      <ReservedName>密林ヘビーロード</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
-  <AccountPackageIdentityNames />
-  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NSXH51XM3VZ" />
+  <AccountPackageIdentityNames>
+    <MainPackageIdentityName>moonmile.AmazonVideoLauncher</MainPackageIdentityName>
+  </AccountPackageIdentityNames>
+  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NLXT8TKLM8F" />
 </StoreAssociation>

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="moonmile.AmazonVideoLauncher" Publisher="CN=EDA861CA-3F77-456F-8A69-6F7235298E70" Version="1.1.1.0" />
-  <mp:PhoneIdentity PhoneProductId="02130c74-95f7-40fb-9ba9-9d9ce2991244" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="38645moonmile.6131471BE7912" Publisher="CN=EDA861CA-3F77-456F-8A69-6F7235298E70" Version="1.2.0.0" />
+  <mp:PhoneIdentity PhoneProductId="bd6fb95d-296a-48e5-9635-8b4b1a9beeaf" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Amazon Video Launcher</DisplayName>
+    <DisplayName>密林ヘビーロード</DisplayName>
     <PublisherDisplayName>moonmile</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -15,8 +15,8 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="AmazonVideoLauncher.App">
-      <uap:VisualElements DisplayName="Amazon Video Launcher" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Amazon Prime Video のランチャーです。" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
+      <uap:VisualElements DisplayName="密林ヘビーロード" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Amazon Prime Video のランチャーです。" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png" ShortName="密ヘ">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
           </uap:ShowNameOnTiles>
