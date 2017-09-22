@@ -26,6 +26,14 @@
           <uap:Rotation Preference="landscape" />
         </uap:InitialRotationPreference>
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="amazon-video-launcher">
+            <uap:Logo>Assets\Logo.png</uap:Logo>
+            <uap:DisplayName>密林ヘビーロード</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

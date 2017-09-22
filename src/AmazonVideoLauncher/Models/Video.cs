@@ -10,7 +10,7 @@ namespace AmazonVideoLauncher.Models
     /// <summary>
     /// 個別の Video クラス
     /// </summary>
-    class Video : ObservableObject
+    public class Video : ObservableObject
     {
         public string Title { get; set; }
         public string Thum { get; set; }
@@ -26,8 +26,12 @@ namespace AmazonVideoLauncher.Models
     /// <summary>
     /// ビデオタイトルクラス
     /// </summary>
-    class VideoTitle : Video
+    public class VideoTitle : Video
     {
         public List<Video> Videos { get; set; }
+        public VideoTitle ()
+        {
+            this.Videos = new List<Video>();
+        }
     }
 }

@@ -118,5 +118,23 @@ namespace AmazonVideoLauncher
             //TODO: アプリケーションの状態を保存してバックグラウンドの動作があれば停止します
             deferral.Complete();
         }
+
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if ( args.Kind == ActivationKind.Protocol )
+            {
+                var ar = args as ProtocolActivatedEventArgs;
+                var rootFrame = new Frame();
+                rootFrame.Navigate(typeof(TopPage));
+                Window.Current.Content = rootFrame;
+                TopPage p = rootFrame.Content as TopPage;
+                p.RecvProtocol(ar.Uri);
+
+                
+            }
+
+            base.OnActivated(args);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AmazonVideoLauncher.Models;
+﻿using AmazonVideoHtmlGet;
+using AmazonVideoLauncher.Models;
 using AmazonVideoLauncher.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,7 @@ namespace AmazonVideoLauncher
             this.Loaded += TopPage_Loaded;
         }
         TopViewModel vm;
+        static TopViewModel _vm;
 
         private void TopPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -44,6 +46,7 @@ namespace AmazonVideoLauncher
                 // 初回のみファイルからロードする
                 // this.DataContext = this.vm = new TopViewModel();
                 dataload();
+                TopPage._vm = vm;
             }
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -169,6 +172,23 @@ namespace AmazonVideoLauncher
                 vm.Items.Remove(v);
             }
             datasave();
+        }
+
+        /// <summary>
+        /// プロトコルを受信
+        /// </summary>
+        /// <param name="url"></param>
+        public async void RecvProtocol( Uri url )
+        {
+            if ( url.PathAndQuery == "/HTML")
+            {
+                this.DataContext = this.vm = TopPage._vm;
+                var data = Clipboard.GetContent();
+                var html = await data.GetTextAsync();
+                var sv = new AVLService();
+                var box = sv.Analysis(html);
+                this.vm.Items.Add(box);
+            }
         }
     }
 }

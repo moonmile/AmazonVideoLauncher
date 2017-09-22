@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -46,6 +47,19 @@ namespace AmazonVideoHtmlGet
             var fs = new System.IO.StreamWriter(path);
             fs.Write(htmlText);
             fs.Close();
+        }
+
+        /// <summary>
+        /// 密林ヘビーロードに送信
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var htmlText = wb.DocumentText;
+            Clipboard.Clear();
+            Clipboard.SetText(htmlText);
+            Process.Start("amazon-video-launcher://api/HTML");
         }
     }
 }
