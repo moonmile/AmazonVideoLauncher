@@ -17,6 +17,8 @@
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Compact">
             <AppBarButton Icon="Delete" Label="削除" Click="AppBarRemove_Click" />
+            <AppBarButton Icon="OpenWith" Label="Amazon" Click="AppBarAmazon_Click" />
+            <AppBarButton Icon="Add" Label="追加" Click="AppBarSave_Click" />
         </CommandBar>
     </Page.BottomAppBar>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -65,5 +67,13 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
+        <Grid Grid.Row="1" x:Name="gridWeb"  Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <WebView Grid.Column="1" x:Name="wv">
+            </WebView>
+        </Grid>
     </Grid>
 </Page>

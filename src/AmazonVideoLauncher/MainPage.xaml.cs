@@ -93,5 +93,6 @@ namespace AmazonVideoLauncher
                 v.IsCheck = false;
             }
         }
+
     }
 }

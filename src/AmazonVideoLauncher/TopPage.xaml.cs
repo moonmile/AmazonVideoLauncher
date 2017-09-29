@@ -48,7 +48,15 @@ namespace AmazonVideoLauncher
                 dataload();
                 TopPage._vm = vm;
             }
+            wv.NewWindowRequested += Wv_NewWindowRequested;
         }
+
+        private void Wv_NewWindowRequested(WebView sender, WebViewNewWindowRequestedEventArgs args)
+        {
+            wv.Navigate(args.Uri);
+            args.Handled = true;
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -182,12 +190,57 @@ namespace AmazonVideoLauncher
         {
             if ( url.PathAndQuery == "/HTML")
             {
-                this.DataContext = this.vm = TopPage._vm;
-                var data = Clipboard.GetContent();
-                var html = await data.GetTextAsync();
-                var sv = new AVLService();
-                var box = sv.Analysis(html);
-                this.vm.Items.Add(box);
+                try
+                {
+                    this.DataContext = this.vm = TopPage._vm;
+                    var data = Clipboard.GetContent();
+                    var html = await data.GetTextAsync();
+                    var sv = new AVLService();
+                    var box = sv.Analysis(html);
+                    this.vm.Items.Add(box);
+                } catch { }
+            }
+        }
+
+        /// <summary>
+        /// アマゾンビデオを開く
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AppBarAmazon_Click(object sender, RoutedEventArgs e)
+        {
+            gridWeb.Visibility = gridWeb.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            if (gridWeb.Visibility == Visibility.Visible)
+            {
+                if (wv.DocumentTitle == "")
+                {
+                    // amazon プライムビデオを開く
+                    wv.Navigate(new Uri("https://www.amazon.co.jp/Prime-Video/b/ref=nav__aiv_piv?ie=UTF8&node=3535604051"));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 追加する
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void AppBarSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (gridWeb.Visibility == Visibility.Visible)
+            {
+                if (wv.DocumentTitle != "")
+                {
+                    // 追加する
+                    var html = await wv.InvokeScriptAsync("eval", new string[] { "document.body.innerHTML" });
+                    var sv = new AVLService();
+                    try
+                    {
+                        var box = sv.Analysis(html);
+                        this.vm.Items.Add(box);
+                    }
+                    catch { }
+                }
             }
         }
     }
