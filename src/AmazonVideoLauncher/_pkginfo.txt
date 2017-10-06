@@ -1,1 +1,1 @@
-D:\git\moonmile\AmazonVideoLauncher\src\AmazonVideoLauncher\bin\ARM\Release\Upload\AmazonVideoLauncher_1.4.2.0\AmazonVideoLauncher_1.4.2.0_x86_x64_arm.appxbundle
+D:\git\moonmile\AmazonVideoLauncher\src\AmazonVideoLauncher\bin\ARM\Release\Upload\AmazonVideoLauncher_1.4.6.0\AmazonVideoLauncher_1.4.6.0_x86_x64_arm.appxbundle

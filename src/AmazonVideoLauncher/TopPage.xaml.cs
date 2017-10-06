@@ -134,7 +134,7 @@ namespace AmazonVideoLauncher
             js.Serialize(sw, this.vm);
             var json = sw.ToString();
 
-            var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var localFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
             var dataFile = await localFolder.CreateFileAsync("data.json", CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteTextAsync(dataFile, json);
         }
@@ -145,7 +145,7 @@ namespace AmazonVideoLauncher
         {
             try
             {
-                var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                var localFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
                 StorageFile dataFile = await localFolder.GetFileAsync("data.json");
                 String json = await FileIO.ReadTextAsync(dataFile);
                 var js = new Newtonsoft.Json.JsonSerializer();
@@ -240,8 +240,20 @@ namespace AmazonVideoLauncher
                         this.vm.Items.Add(box);
                     }
                     catch { }
+                    // ファイルに保存する
+                    datasave();
                 }
             }
+        }
+
+        /// <summary>
+        /// プライバシーポリシーを表示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void AppBarPolicy_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri("http://www.moonmile.net/blog/tools/policy/"));
         }
     }
 }
