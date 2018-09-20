@@ -16,9 +16,9 @@ namespace AmazonVideoHtmlGet
 
             var box = new VideoTitle();
             // タイトルを取得
-            var el = doc.DocumentNode.SelectSingleNode(@"//h1[@id=""aiv-content-title""]");
+            var el = doc.DocumentNode.SelectSingleNode(@"//h1[@data-automation-id=""title""]");
             box.Title = el.InnerText.Trim();
-            var div = doc.DocumentNode.SelectSingleNode(@"//div[@class=""dp-meta-icon-container""]");
+            var div = doc.DocumentNode.SelectSingleNode(@"//div[@class=""av-fallback-packshot av-season-packshot""]");
             box.Thum = div.SelectSingleNode("img").Attributes["src"].Value;
             // vtitle.Videos.Add(vtitle);
 
