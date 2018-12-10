@@ -17,6 +17,10 @@ namespace AmazonVideoHtmlGet
             var box = new VideoTitle();
             // タイトルを取得
             var el = doc.DocumentNode.SelectSingleNode(@"//h1[contains(@class,'dv-node-dp-title')]");
+            if (el == null)
+            {
+                el = doc.DocumentNode.SelectSingleNode(@"//h1[contains(@class,'avu-full-width')]");
+            }
             box.Title = el.InnerText.Trim();
             var div = doc.DocumentNode.SelectSingleNode(@"//div[@class=""av-fallback-packshot av-season-packshot""]");
             box.Thum = div.SelectSingleNode("img").Attributes["src"].Value;
